@@ -31,18 +31,18 @@
 </style>
 
 <!-- Modal Overlay -->
-<div id="{{ $id }}" class="fixed inset-0 bg-gray-400 bg-opacity-5 z-50 hidden items-center justify-center p-3 sm:p-4 modal-overlay" style="display: none; backdrop-filter: blur(1px); -webkit-backdrop-filter: blur(1px);" onclick="if(event.target === this) closeModal('{{ $id }}')">
-    <div class="bg-white/95 backdrop-blur-md rounded-[28px] sm:rounded-[34px] shadow-[0_24px_60px_rgba(15,23,42,0.16)] max-w-md w-full relative max-h-[90vh] sm:max-h-[88vh] overflow-hidden flex flex-col modal-content mx-auto border border-white/40" onclick="event.stopPropagation()" style="transition: transform 0.25s ease; transform-origin: center;">
+<div id="{{ $id }}" class="fixed inset-0 bg-gray-900/60 z-50 hidden items-center justify-center p-4 modal-overlay backdrop-blur-sm transition-all duration-300" style="display: none;" onclick="if(event.target === this) closeModal('{{ $id }}')">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full relative max-h-[90vh] overflow-hidden flex flex-col modal-content mx-auto transform transition-all duration-300 scale-95 opacity-0" onclick="event.stopPropagation()">
         <!-- Header -->
-        <div class="px-6 py-4 border-b border-white/10 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-500 flex-shrink-0 shadow-inner rounded-t-[32px] sm:rounded-t-[38px]">
-            <div class="flex justify-between items-center">
+        <div class="px-6 py-5 border-b border-gray-100 bg-white flex-shrink-0">
+            <div class="flex justify-between items-start">
                 <div class="flex-1 min-w-0 pr-4">
-                    <h3 class="text-lg font-bold text-white mb-0.5">{{ $title }}</h3>
+                    <h3 class="text-xl font-bold text-gray-900">{{ $title }}</h3>
                     @if($subtitle)
-                    <p class="text-sm text-white/80 leading-relaxed mt-1">{{ $subtitle }}</p>
+                    <p class="text-sm text-gray-500 mt-1">{{ $subtitle }}</p>
                     @endif
                 </div>
-                <button type="button" onclick="closeModal('{{ $id }}')" class="ml-2 text-white/80 hover:text-white hover:bg-white/20 rounded-full p-2 flex-shrink-0 transition-all duration-200 hover:rotate-90">
+                <button type="button" onclick="closeModal('{{ $id }}')" class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 transition-all duration-200">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -51,7 +51,7 @@
         </div>
         
         <!-- Content -->
-        <div class="p-6 overflow-y-auto flex-1 bg-white/95" style="scrollbar-width: thin; scrollbar-color: #cbd5e0 #f1f5f9;">
+        <div class="p-6 overflow-y-auto flex-1 bg-white">
             {{ $slot }}
         </div>
     </div>

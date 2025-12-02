@@ -16,7 +16,7 @@
         <aside id="sidebar" class="mobile-sidebar w-20 sm:w-24 lg:w-32 bg-blue-600 flex flex-col items-center py-6 sm:py-8 space-y-4 sm:space-y-6 flex-shrink-0 h-screen fixed lg:sticky top-0 left-0 z-50 transform lg:transform-none -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-xl">
             <!-- Logo -->
             <div class="flex items-center justify-center px-1 mb-2">
-                <img src="{{ asset('images/logo navbar.png') }}" alt="GROWCASH" class="w-full max-w-[80px] sm:max-w-[90px] lg:max-w-[110px] h-auto object-contain">
+                <img src="{{ asset('images/logo%20navbar.png') }}" alt="GROWCASH" class="w-full max-w-[80px] sm:max-w-[90px] lg:max-w-[110px] h-auto object-contain">
             </div>
 
             <!-- Navigation Icons - Only for navigation, not buttons -->
@@ -60,6 +60,18 @@
                     </svg>
                 </a>
             </nav>
+
+            <!-- Logout Button -->
+            <div class="pb-6 sm:pb-8">
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="sidebar-icon flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-2xl p-1 hover:bg-red-500 hover:shadow-lg hover:-translate-y-1 transition-[transform,background-color,box-shadow] duration-300 group" title="Logout">
+                        <svg class="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 text-red-200 group-hover:text-white icon-svg transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                        </svg>
+                    </button>
+                </form>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -93,6 +105,10 @@
                             <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Settings</a>
                             <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Notifications</a>
                             <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 text-sm">Profile</a>
+                            <form action="{{ route('logout') }}" method="POST" class="block">
+                                @csrf
+                                <button type="submit" class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 text-sm font-medium">Logout</button>
+                            </form>
                         </div>
                     </div>
                     <!-- Settings Icon (Yellow) - Desktop -->

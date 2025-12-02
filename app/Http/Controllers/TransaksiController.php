@@ -121,6 +121,18 @@ class TransaksiController extends Controller
             ...$validated,
         ]);
 
+        // Update Finance Goal Progress
+        if (!empty($validated['finance_goal_id'])) {
+            $goal = FinanceGoal::find($validated['finance_goal_id']);
+            if ($goal) {
+                if ($validated['jenis_pengeluaran_pemasukkan'] === 'pemasukkan') {
+                    $goal->increment('kalkulasi', $validated['nominal']);
+                } else {
+                    $goal->decrement('kalkulasi', $validated['nominal']);
+                }
+            }
+        }
+
         return redirect()->route('transaksi.index')
             ->with('success', 'Transaksi berhasil ditambahkan');
     }
@@ -184,7 +196,31 @@ class TransaksiController extends Controller
             );
         }
 
+        // Revert old goal effect
+        if ($transaksi->finance_goal_id) {
+            $oldGoal = FinanceGoal::find($transaksi->finance_goal_id);
+            if ($oldGoal) {
+                if ($transaksi->jenis_pengeluaran_pemasukkan === 'pemasukkan') {
+                    $oldGoal->decrement('kalkulasi', $transaksi->nominal);
+                } else {
+                    $oldGoal->increment('kalkulasi', $transaksi->nominal);
+                }
+            }
+        }
+
         $transaksi->update($validated);
+
+        // Apply new goal effect
+        if (!empty($validated['finance_goal_id'])) {
+            $newGoal = FinanceGoal::find($validated['finance_goal_id']);
+            if ($newGoal) {
+                if ($validated['jenis_pengeluaran_pemasukkan'] === 'pemasukkan') {
+                    $newGoal->increment('kalkulasi', $validated['nominal']);
+                } else {
+                    $newGoal->decrement('kalkulasi', $validated['nominal']);
+                }
+            }
+        }
 
         return redirect()->route('transaksi.index')
             ->with('success', 'Transaksi berhasil diperbarui');
@@ -196,6 +232,19 @@ class TransaksiController extends Controller
     public function destroy(string $id)
     {
         $transaksi = Transaksi::where('user_id', Auth::id())->findOrFail($id);
+        
+        // Revert Finance Goal Progress
+        if ($transaksi->finance_goal_id) {
+            $goal = FinanceGoal::find($transaksi->finance_goal_id);
+            if ($goal) {
+                if ($transaksi->jenis_pengeluaran_pemasukkan === 'pemasukkan') {
+                    $goal->decrement('kalkulasi', $transaksi->nominal);
+                } else {
+                    $goal->increment('kalkulasi', $transaksi->nominal);
+                }
+            }
+        }
+
         $transaksi->delete();
 
         return redirect()->route('transaksi.index')

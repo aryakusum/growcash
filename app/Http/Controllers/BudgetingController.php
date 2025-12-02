@@ -11,10 +11,15 @@ class BudgetingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $budgets = Budgeting::where('user_id', Auth::id())
-            ->with('transaksis')
+        $query = Budgeting::where('user_id', Auth::id());
+
+        if ($request->has('periode') && $request->periode != 'semua') {
+            $query->where('periode', $request->periode);
+        }
+
+        $budgets = $query->with('transaksis')
             ->orderBy('created_at', 'desc')
             ->get();
         
