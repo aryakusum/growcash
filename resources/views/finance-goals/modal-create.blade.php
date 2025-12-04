@@ -1,47 +1,46 @@
-<x-modal-overlay id="modal-goal" title="Tambah Financial Goal" subtitle="Buat financial goal baru untuk mencapai target keuangan Anda">
+<x-modal-overlay id="modal-goal" title="Add Financial Goal" subtitle="Create a new financial goal to achieve your targets">
     <form action="{{ route('finance-goals.store') }}" method="POST" class="space-y-5">
         @csrf
         
         <div>
-            <label for="nama_goals" class="block text-sm font-semibold text-gray-800 mb-2.5">Nama Goal</label>
+            <label for="nama_goals" class="block text-sm font-semibold text-gray-200 mb-2">Goal Name</label>
             <input type="text" id="nama_goals" name="nama_goals" required
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-300 transition-all duration-200 text-sm shadow-sm"
-                placeholder="Contoh: Tabungan Rumah" value="{{ old('nama_goals') }}">
+                class="glass-input w-full px-4 py-3 rounded-xl"
+                placeholder="e.g., House Savings" value="{{ old('nama_goals') }}">
             @error('nama_goals')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label for="tujuan_goals" class="block text-sm font-semibold text-gray-800 mb-2.5">Tujuan Goal</label>
+            <label for="tujuan_goals" class="block text-sm font-semibold text-gray-200 mb-2">Goal Purpose</label>
             <textarea id="tujuan_goals" name="tujuan_goals" rows="3" required
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-300 transition-all duration-200 text-sm resize-none shadow-sm"
-                placeholder="Deskripsi tujuan dari goal ini">{{ old('tujuan_goals') }}</textarea>
+                class="glass-input w-full px-4 py-3 rounded-xl resize-none"
+                placeholder="Describe the purpose of this goal">{{ old('tujuan_goals') }}</textarea>
             @error('tujuan_goals')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
             @enderror
         </div>
 
         <div>
-            <label for="target" class="block text-sm font-semibold text-gray-800 mb-2.5">Target (Rp)</label>
+            <label for="target" class="block text-sm font-semibold text-gray-200 mb-2">Target Amount (Rp)</label>
             <input type="number" id="target" name="target" required min="1"
-                class="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-300 transition-all duration-200 text-sm shadow-sm"
+                class="glass-input w-full px-4 py-3 rounded-xl"
                 placeholder="Rp 0" value="{{ old('target') }}">
             @error('target')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
             @enderror
         </div>
 
-        <div class="flex flex-col sm:flex-row justify-end gap-3 pt-5 border-t border-gray-200 mt-5">
+        <div class="flex flex-col sm:flex-row justify-end gap-3 pt-5 border-t border-white/10 mt-5">
             <button type="button" onclick="closeModal('modal-goal')" 
-                class="w-full sm:w-auto px-6 py-2.5 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 font-medium text-sm">
-                Batal
+                class="w-full sm:w-auto px-6 py-3 bg-white/5 text-gray-300 rounded-xl hover:bg-white/10 hover:text-white transition-all duration-200 font-medium">
+                Cancel
             </button>
             <button type="submit" 
-                class="w-full sm:w-auto px-6 py-2.5 bg-blue-600 text-white rounded-xl hover:bg-blue-700 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 font-medium text-sm shadow-md">
-                Tambah Goal
+                class="glass-button w-full sm:w-auto px-6 py-3 rounded-xl font-semibold">
+                Add Goal
             </button>
         </div>
     </form>
 </x-modal-overlay>
-

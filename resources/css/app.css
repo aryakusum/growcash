@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +7,331 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Typography */
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+    /* Color Palette - Luxury Maximalist */
+    --color-midnight-950: #010725;
+    --color-midnight-900: #050e36;
+    --color-midnight-800: #0a164a;
+    --color-midnight-700: #101e5e;
+
+    --color-luxury-gold: #d4af37;
+    --color-luxury-gold-hover: #b5952f;
+
+    --color-accent-purple: #6d28d9;
+    --color-accent-blue: #0328ee;
+
+    --color-glass-border: rgba(255, 255, 255, 0.08);
+    --color-glass-surface: rgba(255, 255, 255, 0.03);
+    --color-glass-highlight: rgba(255, 255, 255, 0.1);
+
+    /* Animations */
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-glow: glow 3s ease-in-out infinite alternate;
+    --animate-tilt: tilt 10s infinite linear;
+
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-20px);
+        }
+    }
+
+    @keyframes glow {
+        from {
+            box-shadow: 0 0 10px -10px var(--color-luxury-gold);
+        }
+
+        to {
+            box-shadow: 0 0 20px 5px var(--color-luxury-gold);
+        }
+    }
+
+    @keyframes tilt {
+
+        0%,
+        50%,
+        100% {
+            transform: rotate(0deg);
+        }
+
+        25% {
+            transform: rotate(1deg);
+        }
+
+        75% {
+            transform: rotate(-1deg);
+        }
+    }
+}
+
+/* Theme Variables */
+:root {
+    /* Dark Theme (Default) */
+    --bg-primary: #010725;
+    --bg-secondary: #050e36;
+    --bg-tertiary: #0a164a;
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Notification dropdown - solid background for dark mode */
+#notifications-dropdown {
+    background: #0a164a !important;
+    backdrop-filter: blur(20px);
+}
+
+/* Light Theme Base Styles */
+html.light {
+    --bg-primary: #faf8f3;
+    --bg-secondary: #f5f2ea;
+    --bg-tertiary: #ebe7dc;
+    --text-primary: #1a1a24;
+    --text-secondary: #6b7280;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(0, 0, 0, 0.1);
+}
+
+html.light body {
+    background: linear-gradient(135deg, #faf8f3 0%, #f5f2ea 100%);
+    color: #1a1a24;
+}
+
+html.light .glass-panel {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(212, 175, 55, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}
+
+html.light .glass-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.08);
+}
+
+html.light .glass-input {
+    background: rgba(255, 255, 255, 0.6);
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #1a1a24;
+}
+
+html.light .glass-input::placeholder {
+    color: #9ca3af;
+}
+
+html.light .text-white {
+    color: #1a1a24 !important;
+}
+
+html.light .text-gray-100,
+html.light .text-gray-200 {
+    color: #374151 !important;
+}
+
+html.light .text-gray-400 {
+    color: #6b7280 !important;
+}
+
+html.light .text-gray-500 {
+    color: #6b7280 !important;
+}
+
+html.light .text-gray-300 {
+    color: #4b5563 !important;
+}
+
+/* Navigation & Links */
+html.light nav a {
+    color: #374151 !important;
+}
+
+html.light nav a:hover {
+    color: #d4af37 !important;
+}
+
+/* Headings */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6 {
+    color: #1a1a24 !important;
+}
+
+/* Buttons */
+html.light .glass-button {
+    background: linear-gradient(to right, #d4af37, #b8941f);
+    color: #1a1a24 !important;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+/* Light Mode Hover & Animation Adjustments */
+html.light .glass-button:hover {
+    background: linear-gradient(to right, #ffd700, #d4af37);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+    transform: scale(1.05);
+}
+
+html.light .glass-input:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+html.light .glass-input:focus {
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+html.light .glass-card:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 32px rgba(212, 175, 55, 0.15);
+}
+
+html.light .glass-panel:hover {
+    border-color: rgba(212, 175, 55, 0.4);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+/* Links hover */
+html.light a:hover {
+    color: #d4af37 !important;
+}
+
+/* Stats & Numbers */
+html.light .text-emerald-400,
+html.light .text-emerald-500 {
+    color: #059669 !important;
+}
+
+html.light .text-rose-400,
+html.light .text-rose-500 {
+    color: #e11d48 !important;
+}
+
+html.light .text-sky-400,
+html.light .text-sky-500 {
+    color: #0284c7 !important;
+}
+
+html.light .text-purple-400,
+html.light .text-purple-500 {
+    color: #7c3aed !important;
+}
+
+html.light .text-blue-400,
+html.light .text-blue-500 {
+    color: #2563eb !important;
+}
+
+/* Ensure animations work in light mode */
+html.light .animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+html.light .animate-glow {
+    animation: glow 3s ease-in-out infinite alternate;
+}
+
+/* Navbar specific */
+html.light nav {
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+}
+
+/* Form labels */
+html.light label {
+    color: #374151 !important;
+}
+
+/* Placeholder text */
+html.light input::placeholder,
+html.light textarea::placeholder {
+    color: #9ca3af !important;
+}
+
+/* Dropdown/Select options */
+html.light select option {
+    background: #ffffff;
+    color: #1a1a24;
+}
+
+/* Modal overlays */
+html.light .modal-overlay {
+    background: rgba(250, 248, 243, 0.95) !important;
+}
+
+/* Notification dropdown - solid background */
+html.light #notifications-dropdown {
+    background: #ffffff !important;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+html.light #notifications-dropdown button {
+    background: transparent;
+}
+
+html.light #notifications-dropdown button:hover {
+    background: rgba(212, 175, 55, 0.1) !important;
+}
+
+/* Custom Utilities */
+@layer utilities {
+    .glass-panel {
+        @apply backdrop-blur-2xl bg-white/5 border border-white/10 shadow-[0_8px_32px_0_#0000005C];
+    }
+
+    .glass-card {
+        @apply backdrop-blur-xl bg-midnight-800/60 border border-white/5 shadow-xl transition-all duration-300 hover:border-white/10 hover:bg-midnight-800/80;
+    }
+
+    .glass-input {
+        @apply backdrop-blur-xl bg-white/5 border border-white/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-luxury-gold focus:border-luxury-gold hover:border-white/20 transition-all duration-200;
+    }
+
+    .glass-input option {
+        @apply bg-midnight-900 text-white;
+    }
+
+    .glass-button {
+        @apply bg-gradient-to-r from-luxury-gold to-yellow-600 text-midnight-950 font-semibold hover:from-yellow-600 hover:to-luxury-gold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300;
+    }
+
+    .text-gradient-gold {
+        @apply bg-gradient-to-r from-luxury-gold to-yellow-500 bg-clip-text text-transparent;
+    }
+
+    .text-gradient-blue {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400;
+    }
+}
+
+/* Base Styles */
+@layer base {
+    body {
+        @apply bg-midnight-950 text-gray-100 font-sans antialiased overflow-x-hidden;
+        background-image:
+            radial-gradient(circle at 15% 50%, rgba(3, 40, 238, 0.15), transparent 25%),
+            radial-gradient(circle at 85% 30%, rgba(3, 40, 238, 0.15), transparent 25%);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-display tracking-tight;
+    }
 }

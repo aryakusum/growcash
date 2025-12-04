@@ -15,6 +15,9 @@ class FinanceGoal extends Model
         'tujuan_goals',
         'target',
         'kalkulasi',
+        'deadline',
+        'deskripsi',
+        'status',
     ];
 
     protected $casts = [

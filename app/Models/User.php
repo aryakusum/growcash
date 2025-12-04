@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'tanggal_lahir',
         'nomor_telepon',
+        'is_onboarded',
     ];
 
     /**
@@ -62,5 +63,10 @@ class User extends Authenticatable
     public function financeGoals()
     {
         return $this->hasMany(FinanceGoal::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 }

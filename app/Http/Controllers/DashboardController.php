@@ -8,6 +8,8 @@ use App\Models\Transaksi;
 use App\Models\Budgeting;
 use App\Models\FinanceGoal;
 
+use App\Services\FinancialLiteracyService;
+
 class DashboardController extends Controller
 {
     public function index()
@@ -65,6 +67,9 @@ class DashboardController extends Controller
         // Total Target (sum of all goals)
         $totalTarget = FinanceGoal::where('user_id', $user->id)->sum('target');
 
+        // Financial Literacy - Get recommendations
+        $recommendations = FinancialLiteracyService::getBudgetRecommendations($user);
+
         return view('dashboard', compact(
             'totalPemasukkan',
             'totalPengeluaran',
@@ -72,7 +77,9 @@ class DashboardController extends Controller
             'savingRate',
             'budgets',
             'totalGoals',
-            'totalTarget'
+            'totalTarget',
+            'recommendations'
         ));
     }
 }
+
