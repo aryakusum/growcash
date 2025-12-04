@@ -1,85 +1,85 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Login - GrowCash</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="min-h-screen text-gray-100 font-sans antialiased selection:bg-luxury-gold selection:text-midnight-950">
+    
+    <!-- Global Background Effects -->
+    <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent-purple/10 rounded-full blur-[100px] animate-float"></div>
+        <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-accent-blue/10 rounded-full blur-[100px] animate-float" style="animation-delay: -3s;"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03]"></div>
+    </div>
 
-@section('title', 'Login - GrowCash')
-
-@section('content')
-<div class="min-h-screen flex items-center justify-center auth-background py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-    <div class="w-full max-w-md relative z-20">
-        <!-- Logo Section -->
-        <div class="text-center mb-8">
-            <img src="{{ asset('images/logo login.png') }}" alt="GrowCash Logo" class="mx-auto h-24 mb-3 drop-shadow-lg transition-transform hover:scale-105 duration-300">
-        </div>
-
-        <!-- Login Form - Blue Background -->
-        <div class="bg-blue-600 rounded-3xl shadow-2xl p-8 sm:p-10 transition-all hover:shadow-blue-500/20">
-            <div class="mb-8 text-center">
-                <h2 class="text-3xl font-bold text-white">Welcome Back</h2>
-                <p class="text-blue-100 mt-2">Please sign in to your account</p>
+    <div class="min-h-screen flex items-center justify-center px-4 py-12">
+        <div class="w-full max-w-md">
+            <!-- Logo -->
+            <div class="text-center mb-8">
+                <a href="/" class="inline-flex items-center gap-2 group mb-4">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-luxury-gold to-yellow-600 flex items-center justify-center text-midnight-950 font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                        G
+                    </div>
+                    <span class="text-3xl font-display font-bold text-white tracking-tight group-hover:text-luxury-gold transition-colors">GrowCash</span>
+                </a>
+                <p class="text-gray-400 mt-2">Welcome back! Please login to continue</p>
             </div>
 
-            <form class="space-y-6" action="{{ route('login') }}" method="POST">
-                @csrf
-                
-                <!-- Email Field -->
-                <div class="space-y-3">
-                    <label for="email" class="block text-sm font-medium text-white ml-1">Email Address</label>
-                    <div class="relative">
+            <!-- Login Form -->
+            <div class="glass-panel p-8 rounded-3xl border border-white/10">
+                <form action="{{ route('login') }}" method="POST" class="space-y-6">
+                    @csrf
+                    
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-200 mb-2">Email Address</label>
                         <input id="email" name="email" type="email" autocomplete="email" required 
-                            class="w-full px-5 py-3.5 border-0 rounded-2xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200 relative z-10 @error('email') ring-2 ring-red-400 @enderror" 
-                            placeholder="Enter your email" value="{{ old('email') }}">
+                            class="glass-input w-full px-4 py-3 rounded-xl @error('email') ring-2 ring-red-400 @enderror" 
+                            placeholder="your@email.com" value="{{ old('email') }}">
                         @error('email')
-                            <div class="absolute right-0 top-0 h-full flex items-center pr-4 pointer-events-none z-20">
-                                <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
+                            <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
-                    @error('email')
-                        <p class="mt-1 text-sm text-red-200 ml-1">{{ $message }}</p>
-                    @enderror
-                </div>
 
-                <!-- Password Field -->
-                <div class="space-y-3">
-                    <label for="password" class="block text-sm font-medium text-white ml-1">Password</label>
-                    <div class="relative">
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-200 mb-2">Password</label>
                         <input id="password" name="password" type="password" autocomplete="current-password" required 
-                            class="w-full px-5 py-3.5 border-0 rounded-2xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-200 relative z-10 @error('password') ring-2 ring-red-400 @enderror" 
-                            placeholder="Enter your password">
+                            class="glass-input w-full px-4 py-3 rounded-xl @error('password') ring-2 ring-red-400 @enderror" 
+                            placeholder="••••••••">
+                        @error('password')
+                            <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
-                    @error('password')
-                        <p class="mt-1 text-sm text-red-200 ml-1">{{ $message }}</p>
-                    @enderror
-                </div>
 
-                <!-- Forgot Password Link -->
-                <div class="flex items-center justify-between">
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-blue-100 hover:text-white transition-colors duration-200">
-                            Forgot password?
-                        </a>
+                    <!-- Remember & Forgot -->
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="remember" class="w-4 h-4 rounded border-white/20 bg-white/5 text-luxury-gold focus:ring-luxury-gold focus:ring-offset-0">
+                            <span class="ml-2 text-sm text-gray-300">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm text-luxury-gold hover:text-yellow-400 transition-colors">Forgot password?</a>
                     </div>
-                </div>
 
-                <!-- Submit Button -->
-                <button type="submit" 
-                    class="w-full py-4 px-6 bg-white text-blue-600 font-bold rounded-2xl shadow-lg hover:shadow-xl hover:bg-gray-50 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-600 relative z-10">
-                    Sign In
-                </button>
+                    <!-- Submit Button -->
+                    <button type="submit" class="glass-button w-full py-3.5 rounded-xl text-lg font-semibold">
+                        Sign In
+                    </button>
 
-                <!-- Register Link -->
-                <div class="text-center mt-6">
-                    <p class="text-sm text-blue-100">
-                        Don't have an account? 
-                        <a href="{{ route('register') }}" class="font-bold text-white hover:text-blue-50 ml-1 transition-colors duration-200">
-                            Sign Up Now
-                        </a>
-                    </p>
-                </div>
-            </form>
+                    <!-- Register Link -->
+                    <div class="text-center pt-4 border-t border-white/10">
+                        <p class="text-sm text-gray-400">
+                            Don't have an account? 
+                            <a href="{{ route('register') }}" class="text-luxury-gold hover:text-yellow-400 font-semibold transition-colors">Sign Up</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-@endsection
-
+</body>
+</html>

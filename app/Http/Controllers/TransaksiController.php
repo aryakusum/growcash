@@ -6,6 +6,7 @@ use App\Models\Transaksi;
 use App\Models\Budgeting;
 use App\Models\FinanceGoal;
 use App\Services\AICategorizationService;
+use App\Services\NotificationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -116,7 +117,7 @@ class TransaksiController extends Controller
             );
         }
 
-        Transaksi::create([
+        $transaksi = Transaksi::create([
             'user_id' => Auth::id(),
             ...$validated,
         ]);
@@ -132,6 +133,12 @@ class TransaksiController extends Controller
                 }
             }
         }
+
+        // Trigger Notifications
+        $user = Auth::user();
+        NotificationService::notifyTransaction($user, $transaksi);
+        NotificationService::checkBudgetOverrun($user, $transaksi);
+        NotificationService::checkGoalAchieved($user, $transaksi);
 
         return redirect()->route('transaksi.index')
             ->with('success', 'Transaksi berhasil ditambahkan');

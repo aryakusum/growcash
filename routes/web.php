@@ -9,7 +9,7 @@ use App\Http\Controllers\FinanceGoalController;
 
 // Public routes
 Route::get('/', function () {
-    return redirect()->route('login');
+    return view('welcome');
 });
 
 Route::middleware('guest')->group(function () {
@@ -26,6 +26,10 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
+    // Onboarding Routes
+    Route::get('/onboarding', [\App\Http\Controllers\OnboardingController::class, 'index'])->name('onboarding.index');
+    Route::post('/onboarding', [\App\Http\Controllers\OnboardingController::class, 'store'])->name('onboarding.store');
+    
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // Budgeting routes
@@ -34,6 +38,17 @@ Route::middleware('auth')->group(function () {
     // Transaksi routes - laporan harus sebelum resource
     Route::get('/transaksi/laporan', [TransaksiController::class, 'laporan'])->name('transaksi.laporan');
     Route::resource('transaksi', TransaksiController::class)->except(['create', 'edit']);
+    
+    
+    // Profile routes
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [\App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.password');
+    
+    
+    // Notification routes
+    Route::post('/notifications/{id}/read', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/read-all', [\App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.readAll');
     
     // Finance Goals routes
     Route::resource('finance-goals', FinanceGoalController::class);
