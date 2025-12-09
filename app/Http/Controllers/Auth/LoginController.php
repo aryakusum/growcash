@@ -88,47 +88,20 @@ class LoginController extends Controller
             'password.regex' => 'Password harus kombinasi huruf dan angka.',
         ]);
 
-        // Generate OTP
-        $code = OtpCode::generateCode();
-        $expiresAt = now()->addMinutes(10);
-
-        // Invalidate previous OTPs for this email
-        OtpCode::where('email', $validated['email'])
-            ->where('used', false)
-            ->update(['used' => true]);
-
-        // Create new OTP
-        OtpCode::create([
-            'email' => $validated['email'],
-            'code' => $code,
-            'expires_at' => $expiresAt,
-        ]);
-
-        // Send OTP via email
-        try {
-            Mail::send('emails.otp', [
-                'code' => $code,
-                'name' => $validated['name'],
-            ], function ($message) use ($validated) {
-                $message->to($validated['email'])
-                    ->subject('Kode OTP Verifikasi GrowCash');
-            });
-        } catch (\Exception $e) {
-            // Log error but continue
-            \Log::error('Failed to send OTP email: ' . $e->getMessage());
-        }
-
-        // Store registration data in session
-        $request->session()->put('registration_data', [
+        // Create user directly (OTP bypassed)
+        $user = User::create([
             'name' => $validated['name'],
             'tanggal_lahir' => $validated['tanggal_lahir'],
             'email' => $validated['email'],
             'nomor_telepon' => $validated['nomor_telepon'],
-            'password' => $validated['password'],
+            'password' => bcrypt($validated['password']),
         ]);
 
-        return redirect()->route('verify-otp')
-            ->with('success', 'Kode OTP telah dikirim ke email Anda. Silakan cek email Anda.');
+        // Login user
+        Auth::login($user);
+
+        return redirect()->route('onboarding.index')
+            ->with('success', 'Registrasi berhasil! Silakan lengkapi data onboarding.');
     }
 
     /**
