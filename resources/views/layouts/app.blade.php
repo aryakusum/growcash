@@ -38,7 +38,7 @@
                         ['route' => 'transaksi.index', 'label' => 'Transaction'],
                         ['route' => 'budgeting.index', 'label' => 'Budgeting'],
                         ['route' => 'finance-goals.index', 'label' => 'Goals'],
-                        ['route' => 'transaksi.laporan', 'label' => 'Laporan'],
+                        ['route' => 'transaksi.laporan', 'label' => 'Reports'],
                     ] as $item)
                         <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}" 
                            class="{{ request()->routeIs($item['route'].'*') ? 'bg-white/10 text-luxury-gold shadow-[0_0_15px_rgba(212,175,55,0.2)]' : 'text-gray-400 hover:text-white hover:bg-white/5' }} 

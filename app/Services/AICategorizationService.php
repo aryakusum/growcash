@@ -8,26 +8,26 @@ class AICategorizationService
      * Kategori-kategori yang tersedia
      */
     private array $categories = [
-        'Makanan & Minuman' => ['makan', 'restoran', 'warung', 'kafe', 'minum', 'kopi', 'makanan', 'food', 'restaurant', 'warung makan', 'warkop', 'bakso', 'mie ayam', 'nasi goreng', 'ayam goreng', 'pizza', 'burger', 'fast food', 'minuman', 'jus', 'es', 'snack', 'jajan'],
-        'Transportasi' => ['bensin', 'parkir', 'ojek', 'grab', 'gojek', 'taxi', 'transport', 'tol', 'kereta', 'bus', 'angkot', 'angkutan', 'bensin', 'solar', 'premium', 'pertalite', 'pertamax', 'parkir', 'parking', 'tiket', 'ticket', 'pesawat', 'flight', 'kapal', 'ferry'],
-        'Belanja' => ['belanja', 'supermarket', 'mall', 'toko', 'shopping', 'market', 'swalayan', 'minimarket', 'indomaret', 'alfamart', 'superindo', 'hypermart', 'carrefour', 'pasar', 'online shop', 'ecommerce', 'tokopedia', 'shopee', 'lazada', 'bukalapak'],
-        'Hiburan' => ['bioskop', 'konser', 'game', 'hobi', 'entertainment', 'tiket', 'cinema', 'film', 'movie', 'netflix', 'disney', 'hbo', 'vix', 'konser', 'concert', 'event', 'tiket konser', 'tiket event', 'permainan', 'playstation', 'xbox', 'nintendo', 'steam', 'game online'],
-        'Kesehatan' => ['dokter', 'rumah sakit', 'obat', 'apotek', 'kesehatan', 'medical', 'hospital', 'klinik', 'puskesmas', 'rs', 'rumah sakit', 'check up', 'medical check', 'vitamin', 'suplemen', 'farmasi', 'pharmacy', 'dokter gigi', 'dokter mata', 'spa', 'massage', 'pijat', 'fisioterapi'],
-        'Pendidikan' => ['sekolah', 'kuliah', 'kursus', 'buku', 'pendidikan', 'education', 'spp', 'uang sekolah', 'biaya sekolah', 'tuition', 'les', 'bimbel', 'bimbingan belajar', 'tutor', 'buku pelajaran', 'atk', 'alat tulis', 'seragam', 'sepatu sekolah'],
-        'Tagihan & Utilitas' => ['listrik', 'air', 'internet', 'telepon', 'pulsa', 'tagihan', 'bill', 'pln', 'pdam', 'pam', 'wifi', 'indihome', 'first media', 'biznet', 'myrepublic', 'telkomsel', 'indosat', 'xl', 'tri', 'smartfren', 'kartu perdana', 'paket data', 'kuota', 'pascabayar', 'prabayar'],
-        'Langganan & Subscription' => ['spotify', 'netflix', 'disney', 'hbo', 'vix', 'youtube premium', 'youtube', 'disney+', 'disney plus', 'amazon prime', 'prime video', 'apple music', 'apple tv', 'canva', 'adobe', 'microsoft', 'office 365', 'google workspace', 'notion', 'figma', 'subscription', 'langganan', 'membership', 'premium', 'pro', 'subscription', 'abonnement'],
+        'Food & Beverage' => ['makan', 'restoran', 'warung', 'kafe', 'minum', 'kopi', 'makanan', 'food', 'restaurant', 'warung makan', 'warkop', 'bakso', 'mie ayam', 'nasi goreng', 'ayam goreng', 'pizza', 'burger', 'fast food', 'minuman', 'jus', 'es', 'snack', 'jajan'],
+        'Transportation' => ['bensin', 'parkir', 'ojek', 'grab', 'gojek', 'taxi', 'transport', 'tol', 'kereta', 'bus', 'angkot', 'angkutan', 'bensin', 'solar', 'premium', 'pertalite', 'pertamax', 'parkir', 'parking', 'tiket', 'ticket', 'pesawat', 'flight', 'kapal', 'ferry'],
+        'Shopping' => ['belanja', 'supermarket', 'mall', 'toko', 'shopping', 'market', 'swalayan', 'minimarket', 'indomaret', 'alfamart', 'superindo', 'hypermart', 'carrefour', 'pasar', 'online shop', 'ecommerce', 'tokopedia', 'shopee', 'lazada', 'bukalapak'],
+        'Entertainment' => ['bioskop', 'konser', 'game', 'hobi', 'entertainment', 'tiket', 'cinema', 'film', 'movie', 'netflix', 'disney', 'hbo', 'vix', 'konser', 'concert', 'event', 'tiket konser', 'tiket event', 'permainan', 'playstation', 'xbox', 'nintendo', 'steam', 'game online'],
+        'Health' => ['dokter', 'rumah sakit', 'obat', 'apotek', 'kesehatan', 'medical', 'hospital', 'klinik', 'puskesmas', 'rs', 'rumah sakit', 'check up', 'medical check', 'vitamin', 'suplemen', 'farmasi', 'pharmacy', 'dokter gigi', 'dokter mata', 'spa', 'massage', 'pijat', 'fisioterapi'],
+        'Education' => ['sekolah', 'kuliah', 'kursus', 'buku', 'pendidikan', 'education', 'spp', 'uang sekolah', 'biaya sekolah', 'tuition', 'les', 'bimbel', 'bimbingan belajar', 'tutor', 'buku pelajaran', 'atk', 'alat tulis', 'seragam', 'sepatu sekolah'],
+        'Bills & Utilities' => ['listrik', 'air', 'internet', 'telepon', 'pulsa', 'tagihan', 'bill', 'pln', 'pdam', 'pam', 'wifi', 'indihome', 'first media', 'biznet', 'myrepublic', 'telkomsel', 'indosat', 'xl', 'tri', 'smartfren', 'kartu perdana', 'paket data', 'kuota', 'pascabayar', 'prabayar'],
+        'Subscriptions' => ['spotify', 'netflix', 'disney', 'hbo', 'vix', 'youtube premium', 'youtube', 'disney+', 'disney plus', 'amazon prime', 'prime video', 'apple music', 'apple tv', 'canva', 'adobe', 'microsoft', 'office 365', 'google workspace', 'notion', 'figma', 'subscription', 'langganan', 'membership', 'premium', 'pro', 'subscription', 'abonnement'],
         'Top Up & E-Wallet' => ['top up', 'topup', 'saldo', 'gopay', 'ovo', 'dana', 'linkaja', 'shopeepay', 'doku', 'jenius', 'bca mobile', 'mandiri e-wallet', 'bni mobile', 'e-wallet', 'dompet digital', 'pulsa', 'paket data', 'kuota internet', 'steam wallet', 'google play', 'app store', 'itunes', 'voucher game', 'voucher'],
-        'Fashion & Pakaian' => ['baju', 'pakaian', 'baju', 'celana', 'kaos', 'kemeja', 'jaket', 'sepatu', 'sandal', 'tas', 'dompet', 'jam tangan', 'aksesoris', 'fashion', 'clothing', 'apparel', 'zara', 'h&m', 'uniqlo', 'cotton on'],
-        'Kecantikan & Perawatan' => ['kosmetik', 'makeup', 'skincare', 'parfum', 'sabun', 'shampoo', 'kondisioner', 'salon', 'barbershop', 'potong rambut', 'facial', 'facial treatment', 'spa', 'manicure', 'pedicure', 'nail art'],
-        'Investasi' => ['saham', 'reksadana', 'emas', 'investasi', 'investment', 'trading', 'forex', 'crypto', 'bitcoin', 'ethereum', 'saham', 'stock', 'obligasi', 'bonds', 'deposito', 'deposit', 'mutual fund', 'reksadana', 'gold', 'silver'],
-        'Tabungan & Deposito' => ['tabungan', 'deposit', 'saving', 'menabung', 'setoran', 'deposito', 'savings account', 'time deposit'],
-        'Donasi & Zakat' => ['donasi', 'donation', 'zakat', 'infak', 'sedekah', 'charity', 'amal', 'wakaf'],
-        'Hiburan & Rekreasi' => ['liburan', 'vacation', 'hotel', 'penginapan', 'travel', 'wisata', 'tiket wisata', 'tiket masuk', 'taman bermain', 'waterpark', 'theme park', 'dunia fantasi', 'dufan', 'trans studio', 'jogja', 'bali', 'bandung'],
-        'Olahraga & Fitness' => ['gym', 'fitness', 'olahraga', 'sport', 'sepatu olahraga', 'alat olahraga', 'membership gym', 'personal trainer', 'yoga', 'pilates', 'zumba'],
-        'Hobi & Koleksi' => ['hobi', 'koleksi', 'action figure', 'figure', 'komik', 'manga', 'novel', 'buku', 'kamera', 'lensa', 'fotografi', 'photography', 'gitar', 'piano', 'musik', 'instrumen musik'],
-        'Perbaikan & Maintenance' => ['service', 'servis', 'perbaikan', 'repair', 'maintenance', 'service motor', 'service mobil', 'bengkel', 'workshop', 'sparepart', 'suku cadang'],
-        'Hadiah & Kado' => ['hadiah', 'kado', 'gift', 'present', 'parsel', 'bunga', 'karangan bunga'],
-        'Lainnya' => [],
+        'Fashion' => ['baju', 'pakaian', 'baju', 'celana', 'kaos', 'kemeja', 'jaket', 'sepatu', 'sandal', 'tas', 'dompet', 'jam tangan', 'aksesoris', 'fashion', 'clothing', 'apparel', 'zara', 'h&m', 'uniqlo', 'cotton on'],
+        'Beauty & Personal Care' => ['kosmetik', 'makeup', 'skincare', 'parfum', 'sabun', 'shampoo', 'kondisioner', 'salon', 'barbershop', 'potong rambut', 'facial', 'facial treatment', 'spa', 'manicure', 'pedicure', 'nail art'],
+        'Investment' => ['saham', 'reksadana', 'emas', 'investasi', 'investment', 'trading', 'forex', 'crypto', 'bitcoin', 'ethereum', 'saham', 'stock', 'obligasi', 'bonds', 'deposito', 'deposit', 'mutual fund', 'reksadana', 'gold', 'silver'],
+        'Savings' => ['tabungan', 'deposit', 'saving', 'menabung', 'setoran', 'deposito', 'savings account', 'time deposit'],
+        'Donations' => ['donasi', 'donation', 'zakat', 'infak', 'sedekah', 'charity', 'amal', 'wakaf'],
+        'Travel & leisure' => ['liburan', 'vacation', 'hotel', 'penginapan', 'travel', 'wisata', 'tiket wisata', 'tiket masuk', 'taman bermain', 'waterpark', 'theme park', 'dunia fantasi', 'dufan', 'trans studio', 'jogja', 'bali', 'bandung'],
+        'Sports & Fitness' => ['gym', 'fitness', 'olahraga', 'sport', 'sepatu olahraga', 'alat olahraga', 'membership gym', 'personal trainer', 'yoga', 'pilates', 'zumba'],
+        'Hobbies' => ['hobi', 'koleksi', 'action figure', 'figure', 'komik', 'manga', 'novel', 'buku', 'kamera', 'lensa', 'fotografi', 'photography', 'gitar', 'piano', 'musik', 'instrumen musik'],
+        'Maintenance & Repairs' => ['service', 'servis', 'perbaikan', 'repair', 'maintenance', 'service motor', 'service mobil', 'bengkel', 'workshop', 'sparepart', 'suku cadang'],
+        'Gifts' => ['hadiah', 'kado', 'gift', 'present', 'parsel', 'bunga', 'karangan bunga'],
+        'Other' => [],
     ];
 
     /**
@@ -48,10 +48,10 @@ class AICategorizationService
 
         // Jika tidak ditemukan, gunakan kategori default berdasarkan jenis
         if ($jenis === 'pemasukkan') {
-            return 'Pendapatan';
+            return 'Income';
         }
 
-        return 'Lainnya';
+        return 'Other';
     }
 
     /**
@@ -89,8 +89,8 @@ class AICategorizationService
     {
         $categories = array_keys($this->categories);
         // Tambahkan kategori Pendapatan untuk pemasukkan
-        if (!in_array('Pendapatan', $categories)) {
-            $categories[] = 'Pendapatan';
+        if (!in_array('Income', $categories)) {
+            $categories[] = 'Income';
         }
         return $categories;
     }
