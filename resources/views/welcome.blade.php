@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body class="bg-midnight-950 text-white font-sans antialiased overflow-x-hidden min-h-screen flex flex-col relative">
 
     <!-- Background Glow Effects -->
@@ -22,9 +24,10 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-2 group">
+                <img src="{{ asset('images/logo-custom.png') }}" alt="Logo" class="w-10 h-10 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                 <span class="text-2xl font-display font-bold tracking-wider text-white">GROW<span class="text-luxury-gold">CASH</span></span>
             </a>
-            
+
             <!-- Links (Desktop) -->
             <div class="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest text-gray-300">
                 <a href="#" class="hover:text-white hover:text-luxury-gold transition-colors">HOME</a>
@@ -34,14 +37,14 @@
             <!-- CTA -->
             <div class="flex items-center gap-4">
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="hidden md:block px-6 py-2.5 bg-accent-blue rounded-full text-xs font-bold tracking-wide hover:bg-blue-700 transition-all shadow-[0_0_20px_rgba(3,40,238,0.4)] hover:shadow-[0_0_30px_rgba(3,40,238,0.6)]">
-                        DASHBOARD
-                    </a>
+                <a href="{{ url('/dashboard') }}" class="hidden md:block px-6 py-2.5 bg-accent-blue rounded-full text-xs font-bold tracking-wide hover:bg-blue-700 transition-all shadow-[0_0_20px_rgba(3,40,238,0.4)] hover:shadow-[0_0_30px_rgba(3,40,238,0.6)]">
+                    DASHBOARD
+                </a>
                 @else
-                    <a href="{{ route('login') }}" class="text-xs font-bold tracking-wide text-gray-300 hover:text-white mr-4 md:hidden">SIGN IN</a>
-                    <a href="{{ route('login') }}" class="hidden md:block px-6 py-2.5 bg-accent-blue rounded-full text-xs font-bold tracking-wide hover:bg-blue-700 transition-all shadow-[0_0_20px_rgba(3,40,238,0.4)] hover:shadow-[0_0_30px_rgba(3,40,238,0.6)]">
-                        SIGN IN
-                    </a>
+                <a href="{{ route('login') }}" class="text-xs font-bold tracking-wide text-gray-300 hover:text-white mr-4 md:hidden">SIGN IN</a>
+                <a href="{{ route('login') }}" class="hidden md:block px-6 py-2.5 bg-accent-blue rounded-full text-xs font-bold tracking-wide hover:bg-blue-700 transition-all shadow-[0_0_20px_rgba(3,40,238,0.4)] hover:shadow-[0_0_30px_rgba(3,40,238,0.6)]">
+                    SIGN IN
+                </a>
                 @endauth
             </div>
         </div>
@@ -108,7 +111,7 @@
                                 <div class="flex-1 rounded-xl bg-white/5 border border-white/5 relative overflow-hidden">
                                     <div class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-accent-blue/10 to-transparent"></div>
                                     <svg class="absolute bottom-0 left-0 right-0 w-full h-2/3 text-accent-blue opacity-50" viewBox="0 0 100 40" preserveAspectRatio="none">
-                                        <path d="M0,40 Q20,35 40,10 T100,20 V40 H0 Z" fill="currentColor"/>
+                                        <path d="M0,40 Q20,35 40,10 T100,20 V40 H0 Z" fill="currentColor" />
                                     </svg>
                                 </div>
                             </div>
@@ -128,7 +131,7 @@
         <div class="max-w-7xl mx-auto text-center">
             <h2 class="text-4xl font-display font-bold mb-8"><span class="text-white">About</span> <span class="text-luxury-gold">Us</span></h2>
             <p class="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed">
-                GrowCash is dedicated to empowering individuals with the tools they need to achieve financial freedom. 
+                GrowCash is dedicated to empowering individuals with the tools they need to achieve financial freedom.
                 Our platform combines intuitive design with powerful analytics to help you track spending, set goals, and grow your wealth.
                 Whether you're just starting your financial journey or looking to optimize your portfolio, GrowCash is here to support you every step of the way.
             </p>
@@ -147,7 +150,7 @@
                     </div>
                     <span class="text-gray-400 text-xs font-medium tracking-wider">FINPLAN</span>
                 </div>
-                
+
                 <!-- Telkom University -->
                 <div class="flex flex-col items-center gap-3 group">
                     <div class="h-16 flex items-center justify-center bg-white/20 rounded-xl px-6 py-3 transition-all hover:scale-105 border border-white/30 hover:border-luxury-gold/50 shadow-lg">
@@ -176,4 +179,5 @@
     </div>
 
 </body>
+
 </html>

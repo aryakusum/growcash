@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <title>Login - GrowCash</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="min-h-screen text-gray-100 font-sans antialiased selection:bg-luxury-gold selection:text-midnight-950">
-    
+
     <!-- Global Background Effects -->
     <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
         <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent-purple/10 rounded-full blur-[100px] animate-float"></div>
@@ -21,9 +23,7 @@
             <!-- Logo -->
             <div class="text-center mb-8">
                 <a href="/" class="inline-flex items-center gap-2 group mb-4">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-luxury-gold to-yellow-600 flex items-center justify-center text-midnight-950 font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
-                        G
-                    </div>
+                    <img src="{{ asset('images/logo-custom.png') }}" alt="Logo" class="w-16 h-16 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                     <span class="text-3xl font-display font-bold text-white tracking-tight group-hover:text-luxury-gold transition-colors">GrowCash</span>
                 </a>
                 <p class="text-gray-400 mt-2">Welcome back! Please login to continue</p>
@@ -33,26 +33,26 @@
             <div class="glass-panel p-8 rounded-3xl border border-white/10">
                 <form action="{{ route('login') }}" method="POST" class="space-y-6">
                     @csrf
-                    
+
                     <!-- Email -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-200 mb-2">Email Address</label>
-                        <input id="email" name="email" type="email" autocomplete="email" required 
-                            class="glass-input w-full px-4 py-3 rounded-xl @error('email') ring-2 ring-red-400 @enderror" 
+                        <input id="email" name="email" type="email" autocomplete="email" required
+                            class="glass-input w-full px-4 py-3 rounded-xl @error('email') ring-2 ring-red-400 @enderror"
                             placeholder="your@email.com" value="{{ old('email') }}">
                         @error('email')
-                            <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <!-- Password -->
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-200 mb-2">Password</label>
-                        <input id="password" name="password" type="password" autocomplete="current-password" required 
-                            class="glass-input w-full px-4 py-3 rounded-xl @error('password') ring-2 ring-red-400 @enderror" 
+                        <input id="password" name="password" type="password" autocomplete="current-password" required
+                            class="glass-input w-full px-4 py-3 rounded-xl @error('password') ring-2 ring-red-400 @enderror"
                             placeholder="••••••••">
                         @error('password')
-                            <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -73,7 +73,7 @@
                     <!-- Register Link -->
                     <div class="text-center pt-4 border-t border-white/10">
                         <p class="text-sm text-gray-400">
-                            Don't have an account? 
+                            Don't have an account?
                             <a href="{{ route('register') }}" class="text-luxury-gold hover:text-yellow-400 font-semibold transition-colors">Sign Up</a>
                         </p>
                     </div>
@@ -82,4 +82,5 @@
         </div>
     </div>
 </body>
+
 </html>

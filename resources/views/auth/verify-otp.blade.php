@@ -7,9 +7,7 @@
     <div class="glass-card w-full max-w-md p-8 sm:p-10 rounded-3xl relative z-20">
         <!-- Logo Section -->
         <div class="text-center mb-8">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-luxury-gold to-yellow-600 flex items-center justify-center text-midnight-950 font-bold text-3xl shadow-lg mx-auto mb-4">
-                G
-            </div>
+            <img src="{{ asset('images/logo-custom.png') }}" alt="Logo" class="w-20 h-20 rounded-full shadow-lg mx-auto mb-4">
             <h2 class="text-3xl font-display font-bold text-white mb-2">
                 Verify Email
             </h2>
@@ -26,12 +24,12 @@
                     class="glass-input w-full px-4 py-4 rounded-xl text-center text-3xl tracking-[0.5em] font-display font-bold text-luxury-gold placeholder-white/10"
                     placeholder="000000">
                 @error('otp_code')
-                    <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
                 @enderror
             </div>
 
             <div class="pt-2">
-                <button type="submit" 
+                <button type="submit"
                     class="glass-button w-full py-4 rounded-xl text-lg">
                     Verify
                 </button>

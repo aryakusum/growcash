@@ -24,9 +24,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2 group">
-                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-luxury-gold to-yellow-600 flex items-center justify-center text-midnight-950 font-bold text-xl shadow-lg group-hover:scale-110 transition-transform">
-                            G
-                        </div>
+<img src="{{ asset('images/logo-custom.png') }}" alt="Logo" class="w-10 h-10 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                         <span class="text-2xl font-display font-bold text-white tracking-tight group-hover:text-luxury-gold transition-colors">GrowCash</span>
                     </a>
                 </div>
