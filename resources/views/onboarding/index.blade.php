@@ -7,9 +7,7 @@
     <div class="glass-card w-full max-w-3xl p-8 sm:p-12 rounded-3xl relative z-20">
         <!-- Header -->
         <div class="text-center mb-10">
-            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-luxury-gold to-yellow-600 flex items-center justify-center text-midnight-950 font-bold text-4xl shadow-lg mx-auto mb-6 animate-float">
-                G
-            </div>
+            <img src="{{ asset('images/logo-custom.png') }}" alt="Logo" class="w-24 h-24 rounded-full shadow-lg mx-auto mb-6 animate-float">
             <h1 class="text-4xl font-display font-bold text-white mb-3">
                 Welcome to GrowCash
             </h1>
@@ -129,7 +127,7 @@
             </div>
 
             <div class="pt-6">
-                <button type="submit" 
+                <button type="submit"
                     class="glass-button w-full py-4 rounded-xl text-xl shadow-[0_0_20px_rgba(212,175,55,0.4)]">
                     🚀 Start My Financial Journey
                 </button>
