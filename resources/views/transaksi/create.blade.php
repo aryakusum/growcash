@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Tambah Transaksi - GrowCash')
+@section('title', 'Tambah Transaction - GrowCash')
 
 @section('content')
 <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,7 +10,7 @@
         <div class="bg-white shadow rounded-2xl p-6">
             <form action="{{ route('transaksi.store') }}" method="POST">
                 @csrf
-                
+
                 <div class="space-y-6">
                     <div>
                         <label for="jenis_pengeluaran_pemasukkan" class="block text-sm font-medium text-gray-700">Jenis</label>
@@ -20,7 +20,7 @@
                             <option value="pengeluaran">Pengeluaran</option>
                         </select>
                         @error('jenis_pengeluaran_pemasukkan')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -30,7 +30,7 @@
                             class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('nominal') border-red-500 @enderror"
                             placeholder="0" value="{{ old('nominal') }}">
                         @error('nominal')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -41,7 +41,7 @@
                             placeholder="Contoh: Beli makan siang" value="{{ old('deskripsi') }}">
                         <p class="mt-1 text-xs text-gray-500">AI akan mengkategorikan transaksi berdasarkan deskripsi</p>
                         @error('deskripsi')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -51,11 +51,11 @@
                             class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="">Biarkan AI mengkategorikan</option>
                             @foreach($categories as $category)
-                                <option value="{{ $category }}" {{ old('kategori') === $category ? 'selected' : '' }}>{{ $category }}</option>
+                            <option value="{{ $category }}" {{ old('kategori') === $category ? 'selected' : '' }}>{{ $category }}</option>
                             @endforeach
                         </select>
                         @error('kategori')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -65,7 +65,7 @@
                             class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm @error('tanggal') border-red-500 @enderror"
                             value="{{ old('tanggal', date('Y-m-d')) }}">
                         @error('tanggal')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -75,13 +75,13 @@
                             class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="">Tidak ada</option>
                             @foreach($budgets as $budget)
-                                <option value="{{ $budget->id }}" {{ old('budget_id') == $budget->id ? 'selected' : '' }}>
-                                    {{ $budget->nama_budget }} - Rp {{ number_format($budget->nominal_budget, 0, ',', '.') }}
-                                </option>
+                            <option value="{{ $budget->id }}" {{ old('budget_id') == $budget->id ? 'selected' : '' }}>
+                                {{ $budget->nama_budget }} - Rp {{ number_format($budget->nominal_budget, 0, ',', '.') }}
+                            </option>
                             @endforeach
                         </select>
                         @error('budget_id')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -91,13 +91,13 @@
                             class="mt-1 block w-full border border-gray-300 rounded-xl shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                             <option value="">Tidak ada</option>
                             @foreach($goals as $goal)
-                                <option value="{{ $goal->id }}" {{ old('finance_goal_id') == $goal->id ? 'selected' : '' }}>
-                                    {{ $goal->nama_goals }} - Target: Rp {{ number_format($goal->target, 0, ',', '.') }}
-                                </option>
+                            <option value="{{ $goal->id }}" {{ old('finance_goal_id') == $goal->id ? 'selected' : '' }}>
+                                {{ $goal->nama_goals }} - Target: Rp {{ number_format($goal->target, 0, ',', '.') }}
+                            </option>
                             @endforeach
                         </select>
                         @error('finance_goal_id')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
@@ -115,4 +115,3 @@
     </div>
 </div>
 @endsection
-
