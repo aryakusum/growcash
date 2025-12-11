@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <title>@yield('title', 'GrowCash - Premium Finance')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+
 <body class="min-h-screen text-gray-100 font-sans antialiased selection:bg-luxury-gold selection:text-midnight-950 overflow-x-hidden">
-    
+
     <!-- Global Background Effects -->
     <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
         <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-accent-purple/10 rounded-full blur-[100px] animate-float"></div>
@@ -24,7 +26,7 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-2 group">
-<img src="{{ asset('images/logo-custom.png') }}" alt="Logo" class="w-10 h-10 rounded-full shadow-lg group-hover:scale-110 transition-transform">
+                        <img src="{{ asset('images/logo-custom.png') }}" alt="Logo" class="w-10 h-10 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                         <span class="text-2xl font-display font-bold text-white tracking-tight group-hover:text-luxury-gold transition-colors">GrowCash</span>
                     </a>
                 </div>
@@ -32,20 +34,20 @@
                 <!-- Desktop Menu (Centered) -->
                 <div class="hidden md:flex flex-1 justify-center space-x-1">
                     @foreach([
-                        ['route' => 'dashboard', 'label' => 'Dashboard'],
-                        ['route' => 'transaksi.index', 'label' => 'Transaction'],
-                        ['route' => 'budgeting.index', 'label' => 'Budgeting'],
-                        ['route' => 'finance-goals.index', 'label' => 'Goals'],
-                        ['route' => 'transaksi.laporan', 'label' => 'Reports'],
+                    ['route' => 'dashboard', 'label' => 'Dashboard'],
+                    ['route' => 'transaksi.index', 'label' => 'Transaction'],
+                    ['route' => 'budgeting.index', 'label' => 'Budgeting'],
+                    ['route' => 'finance-goals.index', 'label' => 'Goals'],
+                    ['route' => 'transaksi.laporan', 'label' => 'Reports'],
                     ] as $item)
-                        <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}" 
-                           class="{{ request()->routeIs($item['route'].'*') ? 'bg-white/10 text-luxury-gold shadow-[0_0_15px_rgba(212,175,55,0.2)]' : 'text-gray-400 hover:text-white hover:bg-white/5' }} 
+                    <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
+                        class="{{ request()->routeIs($item['route'].'*') ? 'bg-white/10 text-luxury-gold shadow-[0_0_15px_rgba(212,175,55,0.2)]' : 'text-gray-400 hover:text-white hover:bg-white/5' }} 
                                   px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 relative overflow-hidden group">
-                            {{ $item['label'] }}
-                            @if(request()->routeIs($item['route'].'*'))
-                                <div class="absolute bottom-0 left-0 w-full h-0.5 bg-luxury-gold shadow-[0_0_10px_#d4af37]"></div>
-                            @endif
-                        </a>
+                        {{ $item['label'] }}
+                        @if(request()->routeIs($item['route'].'*'))
+                        <div class="absolute bottom-0 left-0 w-full h-0.5 bg-luxury-gold shadow-[0_0_10px_#d4af37]"></div>
+                        @endif
+                    </a>
                     @endforeach
                 </div>
 
@@ -60,11 +62,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                         </svg>
                     </button>
-                    
+
                     <!-- Notifications Bell -->
                     @php
-                        $unreadCount = Auth::user()->notifications()->where('is_read', false)->count();
-                        $notifications = Auth::user()->notifications()->orderBy('created_at', 'desc')->take(5)->get();
+                    $unreadCount = Auth::user()->notifications()->where('is_read', false)->count();
+                    $notifications = Auth::user()->notifications()->orderBy('created_at', 'desc')->take(5)->get();
                     @endphp
                     <button id="notifications-toggle" class="p-2 rounded-xl text-gray-400 hover:text-luxury-gold hover:bg-white/5 transition-all duration-300 relative" title="Notifications">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,7 +78,7 @@
                         </span>
                         @endif
                     </button>
-                    
+
                     <a href="{{ route('profile.index') }}" class="flex items-center gap-3 px-3 py-1.5 rounded-xl bg-white/5 border border-white/5 hover:border-luxury-gold/30 hover:bg-white/10 transition-colors">
                         <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-accent-purple to-accent-blue flex items-center justify-center text-xs font-bold shadow-inner">
                             {{ substr(Auth::user()->name, 0, 1) }}
@@ -86,7 +88,9 @@
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="p-2 rounded-xl text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300" title="Logout">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
                         </button>
                     </form>
                 </div>
@@ -142,21 +146,21 @@
         <div class="md:hidden mobile-menu hidden border-t border-white/5 bg-midnight-900/95 backdrop-blur-xl rounded-b-2xl">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 @foreach([
-                    ['route' => 'dashboard', 'label' => 'Dashboard'],
-                    ['route' => 'transaksi.index', 'label' => 'Transaksi'],
-                    ['route' => 'budgeting.index', 'label' => 'Budgeting'],
-                    ['route' => 'finance-goals.index', 'label' => 'Goals'],
-                    ['route' => 'transaksi.laporan', 'label' => 'Laporan'],
+                ['route' => 'dashboard', 'label' => 'Dashboard'],
+                ['route' => 'transaksi.index', 'label' => 'Transaction'],
+                ['route' => 'budgeting.index', 'label' => 'Budgeting'],
+                ['route' => 'finance-goals.index', 'label' => 'Goals'],
+                ['route' => 'transaksi.laporan', 'label' => 'Reports'],
                 ] as $item)
-                    <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}" 
-                       class="{{ request()->routeIs($item['route'].'*') ? 'bg-luxury-gold/10 text-luxury-gold border-l-2 border-luxury-gold' : 'text-gray-400 hover:bg-white/5 hover:text-white' }} 
+                <a href="{{ Route::has($item['route']) ? route($item['route']) : '#' }}"
+                    class="{{ request()->routeIs($item['route'].'*') ? 'bg-luxury-gold/10 text-luxury-gold border-l-2 border-luxury-gold' : 'text-gray-400 hover:bg-white/5 hover:text-white' }} 
                               block px-3 py-2 rounded-r-lg text-base font-medium transition-colors">
-                        {{ $item['label'] }}
-                    </a>
+                    {{ $item['label'] }}
+                </a>
                 @endforeach
-                
+
                 <div class="border-t border-white/5 my-2"></div>
-                
+
                 <!-- Mobile Profile Link -->
                 <a href="{{ route('profile.index') }}" class="flex items-center gap-3 px-3 py-2 text-base font-medium text-gray-400 hover:bg-white/5 hover:text-white rounded-lg transition-colors">
                     <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-accent-purple to-accent-blue flex items-center justify-center text-xs font-bold shadow-inner text-white">
@@ -211,7 +215,9 @@
         @if(session('success'))
         <div class="mb-6 animate-float" style="animation-duration: 3s;">
             <div class="glass-panel border-l-4 border-l-green-500 text-green-400 px-6 py-4 rounded-xl flex items-center shadow-lg shadow-green-900/20">
-                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
                 <span class="font-medium">{{ session('success') }}</span>
             </div>
         </div>
@@ -220,7 +226,9 @@
         @if(session('error'))
         <div class="mb-6 animate-float" style="animation-duration: 3s;">
             <div class="glass-panel border-l-4 border-l-red-500 text-red-400 px-6 py-4 rounded-xl flex items-center shadow-lg shadow-red-900/20">
-                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
                 <span class="font-medium">{{ session('error') }}</span>
             </div>
         </div>
@@ -295,7 +303,7 @@
         const themeToggle = document.getElementById('theme-toggle');
         const iconDark = document.getElementById('theme-icon-dark');
         const iconLight = document.getElementById('theme-icon-light');
-        
+
         // Load saved theme or default to dark
         const currentTheme = localStorage.getItem('theme') || 'dark';
         if (currentTheme === 'light') {
@@ -307,7 +315,7 @@
         // Toggle theme on button click
         themeToggle?.addEventListener('click', function() {
             const isLight = document.documentElement.classList.toggle('light');
-            
+
             if (isLight) {
                 localStorage.setItem('theme', 'light');
                 iconDark.classList.remove('hidden');
@@ -322,7 +330,7 @@
         // Notifications Toggle
         const notificationsToggle = document.getElementById('notifications-toggle');
         const notificationsDropdown = document.getElementById('notifications-dropdown');
-        
+
         notificationsToggle?.addEventListener('click', function(e) {
             e.stopPropagation();
             notificationsDropdown.classList.toggle('hidden');
@@ -338,11 +346,11 @@
             if (isLight) {
                 mobileIconDark?.classList.remove('hidden');
                 mobileIconLight?.classList.add('hidden');
-                if(mobileThemeText) mobileThemeText.textContent = 'Switch to Dark Mode';
+                if (mobileThemeText) mobileThemeText.textContent = 'Switch to Dark Mode';
             } else {
                 mobileIconDark?.classList.add('hidden');
                 mobileIconLight?.classList.remove('hidden');
-                if(mobileThemeText) mobileThemeText.textContent = 'Switch to Light Mode';
+                if (mobileThemeText) mobileThemeText.textContent = 'Switch to Light Mode';
             }
         }
 
@@ -351,7 +359,7 @@
 
         mobileThemeToggle?.addEventListener('click', function() {
             const isLight = document.documentElement.classList.toggle('light');
-            
+
             if (isLight) {
                 localStorage.setItem('theme', 'light');
                 iconDark.classList.remove('hidden');
@@ -366,12 +374,12 @@
 
         // Mobile Notifications Toggle
         const mobileNotificationsToggle = document.getElementById('mobile-notifications-toggle');
-        
+
         mobileNotificationsToggle?.addEventListener('click', function(e) {
             e.stopPropagation();
             // Toggle the desktop dropdown but position it for mobile
             notificationsDropdown.classList.toggle('hidden');
-            
+
             // Adjust positioning for mobile
             if (window.innerWidth < 768) {
                 notificationsDropdown.style.position = 'fixed';
@@ -390,4 +398,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Transaksi - GrowCash')
+@section('title', 'Transaction - GrowCash')
 
 @section('content')
 <div class="space-y-6">
@@ -28,9 +28,9 @@
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         @php
-            $totalSavings = $totalSavings ?? 0;
-            $totalExpenses = $totalExpenses ?? 0;
-            $totalIncome = $totalIncome ?? 0;
+        $totalSavings = $totalSavings ?? 0;
+        $totalExpenses = $totalExpenses ?? 0;
+        $totalIncome = $totalIncome ?? 0;
         @endphp
 
         <!-- Income -->
@@ -70,16 +70,16 @@
             <h3 class="text-lg font-display font-bold text-white mb-4">Period</h3>
             <div class="grid grid-cols-2 gap-2">
                 @foreach([
-                    ['7D', '7 Days'],
-                    ['1M', '1 Month'],
-                    ['3M', '3 Months'],
-                    ['6M', '6 Months'],
-                    ['1Y', '1 Year']
+                ['7D', '7 Days'],
+                ['1M', '1 Month'],
+                ['3M', '3 Months'],
+                ['6M', '6 Months'],
+                ['1Y', '1 Year']
                 ] as [$value, $label])
-                    <a href="{{ route('transaksi.index', ['period' => $value]) }}" 
-                       class="px-3 py-2 text-sm font-medium rounded-lg transition-all text-center {{ ($period ?? '1M') === $value ? 'bg-luxury-gold text-midnight-950' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white' }}">
-                        {{ $label }}
-                    </a>
+                <a href="{{ route('transaksi.index', ['period' => $value]) }}"
+                    class="px-3 py-2 text-sm font-medium rounded-lg transition-all text-center {{ ($period ?? '1M') === $value ? 'bg-luxury-gold text-midnight-950' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white' }}">
+                    {{ $label }}
+                </a>
                 @endforeach
             </div>
         </div>
@@ -91,7 +91,7 @@
             <h3 class="text-xl font-display font-bold text-white">Transaction History</h3>
             <span class="text-sm text-gray-400">{{ $transaksis->total() }} transactions</span>
         </div>
-        
+
         <div class="divide-y divide-white/5">
             @forelse($transaksis as $transaksi)
             <div class="p-5 hover:bg-white/5 transition-all duration-300 group">
@@ -100,20 +100,20 @@
                         <!-- Icon -->
                         <div class="flex-shrink-0">
                             @if($transaksi->jenis_pengeluaran_pemasukkan === 'pemasukkan')
-                                <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <svg class="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
-                                    </svg>
-                                </div>
+                            <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+                                </svg>
+                            </div>
                             @else
-                                <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                    <svg class="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"></path>
-                                    </svg>
-                                </div>
+                            <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-6 h-6 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6"></path>
+                                </svg>
+                            </div>
                             @endif
                         </div>
-                        
+
                         <!-- Details -->
                         <div class="flex-1 min-w-0">
                             <h4 class="text-base font-semibold text-white truncate mb-1">
@@ -128,20 +128,20 @@
                             @if($transaksi->budget || $transaksi->financeGoal)
                             <div class="mt-2 flex flex-wrap gap-2">
                                 @if($transaksi->budget)
-                                    <span class="inline-flex items-center text-xs text-blue-400 bg-blue-500/10 px-2 py-1 rounded-full">
-                                        <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                                        </svg>
-                                        {{ $transaksi->budget->nama_budget }}
-                                    </span>
+                                <span class="inline-flex items-center text-xs text-blue-400 bg-blue-500/10 px-2 py-1 rounded-full">
+                                    <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                    </svg>
+                                    {{ $transaksi->budget->nama_budget }}
+                                </span>
                                 @endif
                                 @if($transaksi->financeGoal)
-                                    <span class="inline-flex items-center text-xs text-purple-400 bg-purple-500/10 px-2 py-1 rounded-full">
-                                        <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                        </svg>
-                                        {{ $transaksi->financeGoal->nama_goals }}
-                                    </span>
+                                <span class="inline-flex items-center text-xs text-purple-400 bg-purple-500/10 px-2 py-1 rounded-full">
+                                    <svg class="w-3 h-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                    {{ $transaksi->financeGoal->nama_goals }}
+                                </span>
                                 @endif
                             </div>
                             @endif
@@ -155,10 +155,10 @@
                                 {{ $transaksi->jenis_pengeluaran_pemasukkan === 'pemasukkan' ? '+' : '-' }}Rp {{ number_format($transaksi->nominal, 0, ',', '.') }}
                             </span>
                         </div>
-                        
+
                         <div class="flex items-center gap-2">
-                            <button onclick="openEditTransaksiModal({{ $transaksi->id }}, '{{ $transaksi->jenis_pengeluaran_pemasukkan }}', {{ $transaksi->nominal }}, '{{ addslashes($transaksi->deskripsi ?? '') }}', '{{ addslashes($transaksi->kategori ?? '') }}', '{{ $transaksi->tanggal->format('Y-m-d') }}', '{{ $transaksi->budget_id }}', '{{ $transaksi->finance_goal_id }}')" 
-                                    class="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all">
+                            <button onclick="openEditTransaksiModal({{ $transaksi->id }}, '{{ $transaksi->jenis_pengeluaran_pemasukkan }}', {{ $transaksi->nominal }}, '{{ addslashes($transaksi->deskripsi ?? '') }}', '{{ addslashes($transaksi->kategori ?? '') }}', '{{ $transaksi->tanggal->format('Y-m-d') }}', '{{ $transaksi->budget_id }}', '{{ $transaksi->finance_goal_id }}')"
+                                class="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                 </svg>
