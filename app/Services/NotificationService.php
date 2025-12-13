@@ -18,33 +18,43 @@ class NotificationService
 
     public static function checkBudgetOverrun($user, $transaksi)
     {
-        // Get budget for this category in current period
-        $budget = $user->budgets()
-            ->where('nama_budget', $transaksi->kategori)
-            ->where('periode', 'bulanan')
-            ->first();
+        // Cek semua budget yang mungkin terkait dengan transaksi ini
+        // Bisa berdasarkan budget_id langsung atau berdasarkan nama kategori
+        $budgets = collect();
 
-        if (!$budget) {
-            return;
+        // Jika transaksi punya budget_id langsung
+        if ($transaksi->budget_id) {
+            $budget = $user->budgets()->find($transaksi->budget_id);
+            if ($budget) {
+                $budgets->push($budget);
+            }
         }
 
-        // Calculate total spending for this budget in current month
-        $totalSpent = $user->transaksis()
-            ->where('kategori', $transaksi->kategori)
-            ->where('jenis_pengeluaran_pemasukkan', 'pengeluaran')
-            ->whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
-            ->sum('nominal');
+        // Juga cek budget berdasarkan nama kategori
+        $categoryBudget = $user->budgets()
+            ->where('nama_budget', $transaksi->kategori)
+            ->first();
 
-        // Check if over budget
-        if ($totalSpent > $budget->nominal_budget) {
-            $overAmount = $totalSpent - $budget->nominal_budget;
-            self::create(
-                $user->id,
-                'budget_alert',
-                '⚠️ Budget Limit Exceeded!',
-                "Your '{$budget->nama_budget}' budget has exceeded by Rp " . number_format($overAmount, 0, ',', '.')
-            );
+        if ($categoryBudget && !$budgets->contains('id', $categoryBudget->id)) {
+            $budgets->push($categoryBudget);
+        }
+
+        foreach ($budgets as $budget) {
+            // Gunakan method periode-aware untuk menghitung spending
+            $totalSpent = $budget->getSpendingDalamPeriode();
+
+            // Check if over budget
+            if ($totalSpent > $budget->nominal_budget) {
+                $overAmount = $totalSpent - $budget->nominal_budget;
+                $periodeLabel = $budget->periode_label ?? $budget->periode;
+
+                self::create(
+                    $user->id,
+                    'budget_alert',
+                    '⚠️ Budget Limit Exceeded!',
+                    "Your '{$budget->nama_budget}' budget ({$periodeLabel}) has exceeded by Rp " . number_format($overAmount, 0, ',', '.')
+                );
+            }
         }
     }
 
@@ -77,7 +87,7 @@ class NotificationService
     {
         $type = $transaksi->jenis_pengeluaran_pemasukkan === 'pemasukkan' ? 'Income' : 'Expense';
         $icon = $transaksi->jenis_pengeluaran_pemasukkan === 'pemasukkan' ? '💰' : '💸';
-        
+
         self::create(
             $user->id,
             'transaction',

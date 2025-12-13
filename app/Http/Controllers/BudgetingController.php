@@ -22,7 +22,7 @@ class BudgetingController extends Controller
         $budgets = $query->with('transaksis')
             ->orderBy('created_at', 'desc')
             ->get();
-        
+
         return view('budgeting.index', compact('budgets'));
     }
 
@@ -46,6 +46,9 @@ class BudgetingController extends Controller
             'periode' => 'required|in:mingguan,bulanan,tahunan',
         ]);
 
+        // Set periode_mulai berdasarkan tipe periode yang dipilih
+        $periodeMulai = Budgeting::hitungPeriodeMulai($validated['periode']);
+
         Budgeting::create([
             'user_id' => Auth::id(),
             'nama_budget' => $validated['nama_budget'],
@@ -53,6 +56,7 @@ class BudgetingController extends Controller
             'kalkulasi' => 0,
             'warna' => $validated['warna'] ?? '#FF6B6B',
             'periode' => $validated['periode'],
+            'periode_mulai' => $periodeMulai,
         ]);
 
         return redirect()->route('budgeting.index')
@@ -90,6 +94,11 @@ class BudgetingController extends Controller
             'warna' => 'nullable|string|max:7',
             'periode' => 'required|in:mingguan,bulanan,tahunan',
         ]);
+
+        // Jika periode berubah, reset periode_mulai ke periode yang baru
+        if ($budget->periode !== $validated['periode']) {
+            $validated['periode_mulai'] = Budgeting::hitungPeriodeMulai($validated['periode']);
+        }
 
         $budget->update($validated);
 

@@ -25,12 +25,14 @@ class TransaksiController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        
+
         // Get period from request (default: 1M - last month)
         $period = $request->get('period', '1M');
-        
+
         // Calculate date range based on period
         $endDate = now();
+        $startDate = null; // null berarti tampilkan semua
+
         switch ($period) {
             case '7D':
                 $startDate = now()->subDays(7);
@@ -47,26 +49,42 @@ class TransaksiController extends Controller
             case '1Y':
                 $startDate = now()->subYear();
                 break;
+            case 'all':
+                $startDate = null; // Tidak ada filter tanggal
+                break;
             default:
                 $startDate = now()->subMonth();
         }
-        
-        // Get transactions for the period
-        $periodTransaksis = Transaksi::where('user_id', $user->id)
-            ->whereBetween('tanggal', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])
-            ->get();
-        
+
+        // Query builder untuk transaksi
+        $query = Transaksi::where('user_id', $user->id);
+
+        // Apply date filter jika bukan 'all'
+        if ($startDate !== null) {
+            $query->whereBetween('tanggal', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')]);
+        }
+
+        // Get transactions for the period (untuk kalkulasi total)
+        $periodTransaksis = $query->get();
+
         // Calculate totals for the period
         $totalIncome = $periodTransaksis->where('jenis_pengeluaran_pemasukkan', 'pemasukkan')->sum('nominal');
         $totalExpenses = $periodTransaksis->where('jenis_pengeluaran_pemasukkan', 'pengeluaran')->sum('nominal');
         $totalSavings = $totalIncome - $totalExpenses;
-        
-        // Get all transactions for pagination
-        $transaksis = Transaksi::where('user_id', $user->id)
+
+        // Query ulang untuk pagination (tidak bisa reuse query yang sudah di-get())
+        $transaksiQuery = Transaksi::where('user_id', $user->id);
+
+        if ($startDate !== null) {
+            $transaksiQuery->whereBetween('tanggal', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')]);
+        }
+
+        $transaksis = $transaksiQuery
             ->orderBy('tanggal', 'desc')
             ->orderBy('created_at', 'desc')
-            ->paginate(15);
-        
+            ->paginate(15)
+            ->appends(['period' => $period]); // Preserve period parameter in pagination links
+
         return view('transaksi.index', compact('transaksis', 'totalIncome', 'totalExpenses', 'totalSavings', 'period'));
     }
 
@@ -239,7 +257,7 @@ class TransaksiController extends Controller
     public function destroy(string $id)
     {
         $transaksi = Transaksi::where('user_id', Auth::id())->findOrFail($id);
-        
+
         // Revert Finance Goal Progress
         if ($transaksi->finance_goal_id) {
             $goal = FinanceGoal::find($transaksi->finance_goal_id);
@@ -264,7 +282,7 @@ class TransaksiController extends Controller
     public function laporan()
     {
         $user = Auth::user();
-        
+
         $transaksis = Transaksi::where('user_id', $user->id)
             ->orderBy('tanggal', 'desc')
             ->get();

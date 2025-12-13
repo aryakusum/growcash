@@ -11,16 +11,19 @@ class FinancialLiteracyService
 {
     /**
      * Get financial recommendations based on user's budget usage
+     * Sekarang mendukung semua tipe periode (mingguan, bulanan, tahunan)
      */
     public static function getBudgetRecommendations(User $user)
     {
         $recommendations = [];
-        $budgets = $user->budgets()->where('periode', 'bulanan')->get();
-        
+        // Ambil semua budget, bukan hanya bulanan
+        $budgets = $user->budgets()->get();
+
         foreach ($budgets as $budget) {
-            $usage = self::calculateBudgetUsage($user, $budget);
+            // Gunakan method periode-aware
+            $usage = $budget->getSpendingDalamPeriode();
             $percentage = ($budget->nominal_budget > 0) ? ($usage / $budget->nominal_budget) * 100 : 0;
-            
+
             if ($percentage >= 90) {
                 $recommendations[] = [
                     'type' => 'critical',
@@ -28,6 +31,8 @@ class FinancialLiteracyService
                     'usage' => $usage,
                     'limit' => $budget->nominal_budget,
                     'percentage' => round($percentage, 1),
+                    'periode' => $budget->periode_label,
+                    'sisa_hari' => $budget->sisa_hari,
                     'tips' => self::getCriticalTips($budget->nama_budget),
                 ];
             } elseif ($percentage >= 75) {
@@ -37,36 +42,24 @@ class FinancialLiteracyService
                     'usage' => $usage,
                     'limit' => $budget->nominal_budget,
                     'percentage' => round($percentage, 1),
+                    'periode' => $budget->periode_label,
+                    'sisa_hari' => $budget->sisa_hari,
                     'tips' => self::getWarningTips($budget->nama_budget),
                 ];
             }
         }
-        
+
         return $recommendations;
     }
 
     /**
-     * Calculate current month budget usage
+     * Calculate budget usage berdasarkan periode aktif.
+     * Method ini sekarang menggunakan getSpendingDalamPeriode dari model.
      */
     private static function calculateBudgetUsage(User $user, Budgeting $budget)
     {
-        // Get spending from transactions linked to this budget
-        $linkedSpending = $budget->transaksis()
-            ->where('jenis_pengeluaran_pemasukkan', 'pengeluaran')
-            ->whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
-            ->sum('nominal');
-        
-        // Also check transactions with matching category name
-        $categorySpending = $user->transaksis()
-            ->where('kategori', $budget->nama_budget)
-            ->where('jenis_pengeluaran_pemasukkan', 'pengeluaran')
-            ->whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
-            ->whereNull('budget_id') // Only count unlinked transactions
-            ->sum('nominal');
-            
-        return $linkedSpending + $categorySpending;
+        // Gunakan method periode-aware dari model
+        return $budget->getSpendingDalamPeriode();
     }
 
     /**
