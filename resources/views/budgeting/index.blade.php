@@ -21,19 +21,19 @@
     <!-- Period Filter -->
     <div class="glass-card p-6 rounded-2xl">
         @php
-            $currentPeriode = request('periode', 'semua');
+        $currentPeriode = request('periode', 'semua');
         @endphp
         <div class="flex flex-wrap gap-2">
             @foreach([
-                ['semua', 'All'],
-                ['mingguan', 'Weekly'],
-                ['bulanan', 'Monthly'],
-                ['tahunan', 'Yearly']
+            ['semua', 'All'],
+            ['mingguan', 'Weekly'],
+            ['bulanan', 'Monthly'],
+            ['tahunan', 'Yearly']
             ] as [$value, $label])
-                <a href="{{ route('budgeting.index', ['periode' => $value]) }}" 
-                   class="px-4 py-2 rounded-lg text-sm font-medium transition-all {{ $currentPeriode == $value ? 'bg-luxury-gold text-midnight-950' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white' }}">
-                    {{ $label }}
-                </a>
+            <a href="{{ route('budgeting.index', ['periode' => $value]) }}"
+                class="px-4 py-2 rounded-lg text-sm font-medium transition-all {{ $currentPeriode == $value ? 'bg-luxury-gold text-midnight-950' : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white' }}">
+                {{ $label }}
+            </a>
             @endforeach
         </div>
     </div>
@@ -42,10 +42,11 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         @forelse($budgets as $budget)
         @php
-            $spent = $budget->transaksis->sum('nominal');
-            $progress = $budget->nominal_budget > 0 ? min(100, ($spent / $budget->nominal_budget) * 100) : 0;
-            $remaining = max(0, $budget->nominal_budget - $spent);
-            $isOverBudget = $spent > $budget->nominal_budget;
+        // Gunakan metode baru yang menghitung spending dalam periode aktif saja
+        $spent = $budget->getSpendingDalamPeriode();
+        $progress = $budget->nominal_budget > 0 ? min(100, ($spent / $budget->nominal_budget) * 100) : 0;
+        $remaining = max(0, $budget->nominal_budget - $spent);
+        $isOverBudget = $spent > $budget->nominal_budget;
         @endphp
         <div class="glass-card p-6 rounded-2xl hover:scale-105 transition-all duration-300 {{ $isOverBudget ? 'border-2 border-red-500/50' : '' }}">
             <div class="flex justify-between items-start mb-4">
@@ -61,8 +62,8 @@
                     </div>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="openEditModal({{ $budget->id }}, '{{ addslashes($budget->nama_budget) }}', {{ $budget->nominal_budget }}, '{{ $budget->periode ?? 'bulanan' }}', '{{ $budget->warna ?? '#FF6B6B' }}')" 
-                            class="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all">
+                    <button onclick="openEditModal({{ $budget->id }}, '{{ addslashes($budget->nama_budget) }}', {{ $budget->nominal_budget }}, '{{ $budget->periode ?? 'bulanan' }}', '{{ $budget->warna ?? '#FF6B6B' }}')"
+                        class="p-2 rounded-xl bg-white/5 text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition-all">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                         </svg>
@@ -94,8 +95,8 @@
                 </div>
 
                 <div class="relative w-full bg-white/5 rounded-full h-3 overflow-hidden">
-                    <div class="absolute top-0 left-0 h-full rounded-full transition-all duration-500" 
-                         style="width: {{ $progress }}%; background-color: {{ $isOverBudget ? '#ef4444' : ($budget->warna ?? '#FF6B6B') }}; box-shadow: 0 0 15px {{ $isOverBudget ? 'rgba(239, 68, 68, 0.5)' : 'rgba(255, 107, 107, 0.5)' }}">
+                    <div class="absolute top-0 left-0 h-full rounded-full transition-all duration-500"
+                        style="width: {{ $progress }}%; background-color: {{ $isOverBudget ? '#ef4444' : ($budget->warna ?? '#FF6B6B') }}; box-shadow: 0 0 15px {{ $isOverBudget ? 'rgba(239, 68, 68, 0.5)' : 'rgba(255, 107, 107, 0.5)' }}">
                     </div>
                 </div>
 
@@ -118,6 +119,21 @@
                     </div>
                 </div>
                 @endif
+
+                {{-- Indikator kapan periode akan reset --}}
+                <div class="mt-3 p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div class="flex items-center justify-between text-sm">
+                        <div class="flex items-center gap-2 text-gray-400">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                            <span>Resets in</span>
+                        </div>
+                        <span class="font-medium text-luxury-gold">
+                            {{ $budget->sisa_hari }} {{ $budget->sisa_hari == 1 ? 'day' : 'days' }}
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         @empty

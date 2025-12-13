@@ -9,12 +9,22 @@
         <div>
             <h1 class="text-3xl font-display font-bold text-white mb-2">Transactions</h1>
             <p class="text-gray-400">
-                @if(($period ?? '1M') === '7D') Last 7 Days
-                @elseif(($period ?? '1M') === '1M') This Month
-                @elseif(($period ?? '1M') === '3M') Last 3 Months
-                @elseif(($period ?? '1M') === '6M') Last 6 Months
-                @elseif(($period ?? '1M') === '1Y') This Year
-                @else This Month @endif
+                @if(($period ?? '1M') === '7D')
+                <span class="text-luxury-gold font-medium">Last 7 Days</span>
+                @elseif(($period ?? '1M') === '1M')
+                <span class="text-luxury-gold font-medium">This Month</span>
+                @elseif(($period ?? '1M') === '3M')
+                <span class="text-luxury-gold font-medium">Last 3 Months</span>
+                @elseif(($period ?? '1M') === '6M')
+                <span class="text-luxury-gold font-medium">Last 6 Months</span>
+                @elseif(($period ?? '1M') === '1Y')
+                <span class="text-luxury-gold font-medium">This Year</span>
+                @elseif(($period ?? '1M') === 'all')
+                <span class="text-luxury-gold font-medium">All Time</span>
+                @else
+                <span class="text-luxury-gold font-medium">This Month</span>
+                @endif
+                • {{ $transaksis->total() }} transactions found
             </p>
         </div>
         <button onclick="openModal('modal-transaksi')" class="glass-button px-6 py-3 rounded-xl font-semibold inline-flex items-center gap-2 group">
@@ -68,8 +78,9 @@
         <!-- Period Selector -->
         <div class="glass-card p-6 rounded-2xl">
             <h3 class="text-lg font-display font-bold text-white mb-4">Period</h3>
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-3 gap-2">
                 @foreach([
+                ['all', 'All'],
                 ['7D', '7 Days'],
                 ['1M', '1 Month'],
                 ['3M', '3 Months'],

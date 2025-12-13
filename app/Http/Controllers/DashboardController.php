@@ -15,7 +15,7 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
+
         // Total pemasukkan (semua waktu)
         $totalPemasukkan = Transaksi::where('user_id', $user->id)
             ->where('jenis_pengeluaran_pemasukkan', 'pemasukkan')
@@ -30,26 +30,23 @@ class DashboardController extends Controller
         $saving = $totalPemasukkan - $totalPengeluaran;
 
         // Saving Rate (percentage)
-        $savingRate = $totalPemasukkan > 0 
-            ? round(($saving / $totalPemasukkan) * 100, 1) 
+        $savingRate = $totalPemasukkan > 0
+            ? round(($saving / $totalPemasukkan) * 100, 1)
             : 0;
 
-        // Budgets dengan progress
+        // Budgets dengan progress - gunakan method periode-aware
         $budgets = Budgeting::where('user_id', $user->id)
-            ->with('transaksis')
             ->get()
             ->map(function ($budget) {
-                // Hitung total pengeluaran untuk budget ini
-                $spent = $budget->transaksis()
-                    ->where('jenis_pengeluaran_pemasukkan', 'pengeluaran')
-                    ->sum('nominal');
-                
-                $progress = $budget->nominal_budget > 0 
-                    ? round(($spent / $budget->nominal_budget) * 100, 1) 
+                // Hitung spending dalam periode aktif saja
+                $spent = $budget->getSpendingDalamPeriode();
+
+                $progress = $budget->nominal_budget > 0
+                    ? round(($spent / $budget->nominal_budget) * 100, 1)
                     : 0;
-                
+
                 $remaining = max(0, $budget->nominal_budget - $spent);
-                
+
                 return [
                     'id' => $budget->id,
                     'nama_budget' => $budget->nama_budget,
@@ -58,6 +55,9 @@ class DashboardController extends Controller
                     'progress' => $progress,
                     'remaining' => $remaining,
                     'warna' => $budget->warna ?? '#6366f1',
+                    'periode' => $budget->periode,
+                    'periode_label' => $budget->periode_label,
+                    'sisa_hari' => $budget->sisa_hari,
                 ];
             });
 
@@ -82,4 +82,3 @@ class DashboardController extends Controller
         ));
     }
 }
-
